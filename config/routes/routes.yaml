@@ -1,0 +1,16 @@
+# Geometry Related Services
+geometry_circle:
+  path: /v1/api/geometry/circle/{radius}
+  controller: 'App\Controller\V1\Api\Geometry\CircleController::handleGET'
+  methods: [GET]
+
+geometry_triangle:
+  path: /v1/api/geometry/triangle/{a}/{b}/{c}
+  controller: 'App\Controller\V1\Api\Geometry\TriangleController::handleGET'
+  methods: [GET]
+
+# Application Related Services
+app_health:
+  path: /v1/app/health
+  controller: 'App\Controller\AppController::index'
+  methods: [GET]
