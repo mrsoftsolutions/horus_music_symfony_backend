@@ -3,6 +3,7 @@
 /**
  * CircleEntity.php (CIRCLE data model)
  *
+ * @author    Pavan Kumar
  * @since     2024-07-09
  * @package   horus_music
  *

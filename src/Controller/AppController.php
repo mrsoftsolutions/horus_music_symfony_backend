@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * AppController.php
+ *
+ * @author    Pavan Kumar
+ * @since     2024-07-08
+ * @package   horus_music
+ *
+ * @namespace App\Controller
+ */
+
 # namespace
 namespace App\Controller;
 

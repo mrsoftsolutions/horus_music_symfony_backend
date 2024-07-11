@@ -3,6 +3,7 @@
 /**
  * CircleService.php
  *
+ * @author    Pavan Kumar
  * @since     2024-07-09
  * @package   horus_music
  *
@@ -51,6 +52,7 @@ class CircleService implements CircleServiceInterface
 {
   /**
    * Calculate surface area of a circle.
+   * info: surface = area of the circle
    *
    * FORMULA:
    * A = π r²

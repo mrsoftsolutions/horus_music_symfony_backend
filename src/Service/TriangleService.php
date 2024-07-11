@@ -3,6 +3,7 @@
 /**
  * TriangleService.php
  *
+ * @author    Pavan Kumar
  * @since     2024-07-09
  * @package   horus_music
  *
@@ -51,13 +52,11 @@ class TriangleService implements TriangleServiceInterface
 {
   /**
    * Calculate surface area of a triangle.
+   * info: surface = area of the circle
    *
    * FORMULA:
    * Heron's formula: A = √(s*(s-a)*(s-b)*(s-c))
    * where s = (a + b + c) / 2
-   *
-   * If we know the base & height, we can use below formula
-   * A = 1/2 * b * h
    *
    * @param   TriangleEntity $triangle
    *
@@ -98,6 +97,12 @@ class TriangleService implements TriangleServiceInterface
 
   /**
    * Calculate diameter of a triangle using circumradius.
+   * NOTES: Here we will use the basic concept of the circumcircle of the triangle, to calculate the diameter of the triangle.
+   *
+   * FORMULA:
+   * - R (circum-radius) = (a * b * c) / (4 * A)
+   *   - A = area of the triangle
+   * - D (diameter) = 2 * R
    *
    * @param   TriangleEntity  $triangle
    *

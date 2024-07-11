@@ -3,6 +3,7 @@
 /**
  * TriangleController.php (TRIANGLE)
  *
+ * @author    Pavan Kumar
  * @since     2024-07-10
  * @package   horus_music
  *
@@ -14,14 +15,13 @@ namespace App\Controller\V1\Api\Geometry;
 
 # use
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Psr\Log\LoggerInterface;
 
 # abstract api controller
 use App\Controller\V1\Api\AbstractApiController;
 
-# entity
+# triangle entity & service
 use App\Entity\TriangleEntity;
-
-# service
 use App\Service\TriangleService;
 
 /**
@@ -29,6 +29,13 @@ use App\Service\TriangleService;
  */
 class TriangleController extends AbstractApiController
 {
+  /**
+   * Logger
+   *
+   * @var   LoggerInterface
+   */
+  protected $logger;
+
   /**
    * Triangle Service
    *
@@ -39,12 +46,14 @@ class TriangleController extends AbstractApiController
   /**
    * constructor
    *
+   * @param LoggerInterface $logger
    * @param TriangleService $triangleService
    */
-  public function __construct(TriangleService $triangleService)
+  public function __construct(LoggerInterface $logger, TriangleService $triangleService)
   {
     # create clients
-    $this->triangleService = $triangleService;
+    $this->logger           = $logger;
+    $this->triangleService  = $triangleService;
   }
 
 # *******************************************************************************************************************

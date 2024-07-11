@@ -1,43 +1,27 @@
 <?php
 
+/**
+ * AbstractApiController.php
+ *
+ * @author    Pavan Kumar
+ * @since     2024-07-08
+ * @package   horus_music
+ *
+ * @namespace App\Controller\V1\Api
+ */
+
 # namespace
 namespace App\Controller\V1\Api;
 
 # use
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Psr\Log\LoggerInterface;
 
 /**
  * Abstract Controller
  */
 abstract class AbstractApiController extends AbstractController
 {
-  /**
-   * Logger
-   *
-   * @var   LoggerInterface
-   */
-  protected $logger;
-
-  /**
-   * Initialization method
-   *
-   * This method is called right after the controller has been created before any route specific Middleware handlers
-   *
-   * @param array  $args   Path variable arguments as name=value pairs
-   */
-  public function initialize(LoggerInterface $logger)
-  {
-    # create client
-    $this->logger = $logger;
-
-    return ;
-  }
-
-# *******************************************************************************************************************
-# *******************************************************************************************************************
-
   /**
    * successResponse
    *

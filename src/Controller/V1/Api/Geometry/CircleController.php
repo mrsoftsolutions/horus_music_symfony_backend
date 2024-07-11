@@ -3,6 +3,7 @@
 /**
  * CircleController.php (CIRCLE)
  *
+ * @author    Pavan Kumar
  * @since     2024-07-10
  * @package   horus_music
  *
@@ -14,14 +15,13 @@ namespace App\Controller\V1\Api\Geometry;
 
 # use
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Psr\Log\LoggerInterface;
 
 # abstract api controller
 use App\Controller\V1\Api\AbstractApiController;
 
-# entity
+# circle entity & service
 use App\Entity\CircleEntity;
-
-# service
 use App\Service\CircleService;
 
 /**
@@ -29,6 +29,13 @@ use App\Service\CircleService;
  */
 class CircleController extends AbstractApiController
 {
+  /**
+   * Logger
+   *
+   * @var   LoggerInterface
+   */
+  protected $logger;
+
   /**
    * Circle Service
    *
@@ -39,12 +46,14 @@ class CircleController extends AbstractApiController
   /**
    * constructor
    *
-   * @param CircleService $circleService
+   * @param LoggerInterface $logger
+   * @param CircleService   $circleService
    */
-  public function __construct(CircleService $circleService)
+  public function __construct(LoggerInterface $logger, CircleService $circleService)
   {
     # create clients
-    $this->circleService = $circleService;
+    $this->logger           = $logger;
+    $this->circleService    = $circleService;
   }
 
 # *******************************************************************************************************************
@@ -89,8 +98,5 @@ class CircleController extends AbstractApiController
     # response
     return $this->successResponse($result);
   }
-
-# *******************************************************************************************************************
-# *******************************************************************************************************************
 
 }
