@@ -55,7 +55,7 @@ class TriangleService implements TriangleServiceInterface
    * info: surface = area of the circle
    *
    * FORMULA:
-   * Heron's formula: A = √(s*(s-a)*(s-b)*(s-c))
+   * A = √(s*(s-a)*(s-b)*(s-c))
    * where s = (a + b + c) / 2
    *
    * @param   TriangleEntity $triangle

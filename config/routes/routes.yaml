@@ -9,9 +9,14 @@ geometry_triangle:
   controller: 'App\Controller\V1\Api\Geometry\TriangleController::handleGET'
   methods: [GET]
 
-geometry_sum:
-  path: /v1/api/geometry/sum
-  controller: 'App\Controller\V1\Api\Geometry\GeometryController::handlePOST'
+geometry_sum_areas:
+  path: /v1/api/geometry/sum/areas
+  controller: 'App\Controller\V1\Api\Geometry\GeometryController::sumAreas'
+  methods: [POST]
+
+geometry_sum_diameters:
+  path: /v1/api/geometry/sum/diameters
+  controller: 'App\Controller\V1\Api\Geometry\GeometryController::sumDiameters'
   methods: [POST]
 
 # Application Related Services

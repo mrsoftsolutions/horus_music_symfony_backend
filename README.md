@@ -45,8 +45,8 @@
 }
 ```
 
-### SUM OF AREAS & DIAMETERS
-- URL: POST http://localhost:8000/v1/api/geometry/sum
+### SUM OF AREAS
+- URL: POST http://localhost:8000/v1/api/geometry/sum/areas
 - PAYLOAD:
 ```json
 {
@@ -63,7 +63,28 @@
 - RESPONSE:
 ```json
 {
-  "sum_of_areas": 93.2367547964439,
+  "sum_of_areas": 93.2367547964439
+}
+```
+
+### SUM OF DIAMETERS
+- URL: POST http://localhost:8000/v1/api/geometry/sum/diameters
+- PAYLOAD:
+```json
+{
+  "object_1": { // can be a circle or triangle -> let's consider circle
+    "radius": 5
+  },
+  "object_2": { // can be a circle or triangle -> let's consider triangle
+    "a": 5,
+    "b": 6,
+    "c": 7
+  }
+}
+```
+- RESPONSE:
+```json
+{
   "sum_of_diameters": 17.144345083117603
 }
 ```

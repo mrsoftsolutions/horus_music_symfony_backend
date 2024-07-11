@@ -61,7 +61,7 @@ class TriangleController extends AbstractApiController
 
   /**
    * method: handleGET
-   * The api to calculate surface & diameter of the triangle
+   * The api is used to calculate surface & diameter of the triangle
    *
    * @param   int           $a
    * @param   int           $b
@@ -94,9 +94,9 @@ class TriangleController extends AbstractApiController
 
     } catch (\Exception $e) {
       # log the error
-      $this->logger->error('Error calculating triangle properties', ['exception' => $e]);
+      $this->logger->error($e->getMessage() ?? 'Error calculating triangle properties', ['exception' => $e]);
       # error response (to calling client)
-      return $this->errorResponse('Error calculating triangle properties');
+      return $this->errorResponse($e->getMessage() ?? 'Error calculating triangle properties');
     }
 
     # response

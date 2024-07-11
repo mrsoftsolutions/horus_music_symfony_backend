@@ -61,7 +61,7 @@ class CircleController extends AbstractApiController
 
   /**
    * method: handleGET
-   * The api to calculate surface & diameter of the circle
+   * The api is used to calculate surface & diameter of the circle
    *
    * @param   float         $radius
    *
@@ -90,9 +90,9 @@ class CircleController extends AbstractApiController
 
     } catch (\Exception $e) {
       # log the error
-      $this->logger->error('Error calculating circle properties', ['exception' => $e]);
+      $this->logger->error($e->getMessage() ?? 'Error calculating circle properties', ['exception' => $e]);
       # error response (to calling client)
-      return $this->errorResponse('Error calculating circle properties');
+      return $this->errorResponse($e->getMessage() ?? 'Error calculating circle properties');
     }
 
     # response

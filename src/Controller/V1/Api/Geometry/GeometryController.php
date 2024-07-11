@@ -74,8 +74,8 @@ class GeometryController extends AbstractApiController
 # *******************************************************************************************************************
 
   /**
-   * method: handlePOST
-   * The api to calculate sum of surface & diameter of the circle
+   * method: sumAreas
+   * The api is used to calculate the sum of surfaces
    *
    * EXPECTED PAYLOAD:
    * {
@@ -91,9 +91,9 @@ class GeometryController extends AbstractApiController
    *
    * @param   float         $radius
    *
-   * @return  JsonResponse  The circle properties
+   * @return  JsonResponse  sum of surfaces
    */
-  public function handlePOST(Request $request): JsonResponse
+  public function sumAreas(Request $request): JsonResponse
   {
     try {
 
@@ -121,7 +121,80 @@ class GeometryController extends AbstractApiController
 
       # Initialize the result
       $result = [
-        'sum_of_areas'     => 0,
+        'sum_of_areas'     => 0
+      ];
+
+      # object - 1
+      $object1 = $this->calculateSurfaceDiameterOfTheObject($payload['object_1']);
+
+      # object - 2
+      $object2 = $this->calculateSurfaceDiameterOfTheObject($payload['object_2']);
+
+      # sum of areas
+      $result['sum_of_areas'] = $object1['area'] + $object2['area'];
+
+    } catch (\Exception $e) {
+      # log the error
+      $this->logger->error($e->getMessage() ?? 'Error calculating sum of areas', ['exception' => $e]);
+      # error response (to calling client)
+      return $this->errorResponse($e->getMessage() ?? 'Error calculating sum of areas');
+    }
+
+    # response
+    return $this->successResponse($result);
+  }
+
+# *******************************************************************************************************************
+# *******************************************************************************************************************
+
+  /**
+   * method: sumDiameters
+   * The api is used to calculate the sum of diameters
+   *
+   * EXPECTED PAYLOAD:
+   * {
+   *    "object_1": { // can be a circle or triangle -> let's consider circle
+   *      "radius": 5
+   *    },
+   *    "object_2": { // can be a circle or triangle -> let's consider triangle
+   *      "a": 5,
+   *      "b": 6,
+   *      "c": 7
+   *    }
+   * }
+   *
+   * @param   float         $radius
+   *
+   * @return  JsonResponse  sum of diameters
+   */
+  public function sumDiameters(Request $request): JsonResponse
+  {
+    try {
+
+      # Validate HTTP Request "Content-type"
+      if (!preg_match('/application\/json/i', $request->headers->get('Content-Type'))) {
+        throw new \Exception('Content-Type must be "application/json"');
+      }
+
+      # Decode payload
+      $payload = \json_decode($request->getContent(), true) ?? [];
+      if (empty($payload)) throw new \Exception('Invalid post body');
+
+      # make sure user sent 2 objects
+      if (\count($payload) < 2) throw new \Exception('Mandatory to send 2 objects');
+
+      # make sure object_1 is sent & not empty
+      if (!\array_key_exists('object_1', $payload) || empty($payload['object_1'] ?? [])) {
+        throw new \Exception('{object_1} is a mandatory');
+      }
+
+      # make sure object_2 is sent & not empty
+      if (!\array_key_exists('object_2', $payload) || empty($payload['object_2'] ?? [])) {
+        throw new \Exception('{object_2} is a mandatory');
+      }
+
+      # Initialize the result
+      $result = [
         'sum_of_diameters' => 0
       ];
 
@@ -131,15 +204,14 @@ class GeometryController extends AbstractApiController
       # object - 2
       $object2 = $this->calculateSurfaceDiameterOfTheObject($payload['object_2']);
 
-      # sum of areas & diameters
-      $result['sum_of_areas']     = $object1['area'] + $object2['area'];
+      # sum of diameters
       $result['sum_of_diameters'] = $object1['diameter'] + $object2['diameter'];
 
     } catch (\Exception $e) {
       # log the error
-      $this->logger->error($e->getMessage() ?? 'Error calculating sum of circles', ['exception' => $e]);
+      $this->logger->error($e->getMessage() ?? 'Error calculating sum of diameters', ['exception' => $e]);
       # error response (to calling client)
-      return $this->errorResponse($e->getMessage() ?? 'Error calculating sum of circles');
+      return $this->errorResponse($e->getMessage() ?? 'Error calculating sum of diameters');
     }
 
     # response
